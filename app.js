@@ -2,16 +2,20 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const homeRouter = require("./routers/homeRouter");
-
-const port = process.env.PORT || 4000;
+const path = require("path");
 const app = express();
+const port = process.env.PORT || 4000;
 
+const templatePath = path.join(__dirname, "./ahmad");
 app.set("view engine", "hbs");
+app.set("views", templatePath);
 app.use(express.static("public"));
+
 // app.use(bodyParser.json());
 // app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
 app.use("/", homeRouter);
 
 mongoose
